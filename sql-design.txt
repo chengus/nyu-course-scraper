@@ -1,0 +1,38 @@
+CREATE TABLE IF NOT EXISTS courses (
+  id             INTEGER PRIMARY KEY AUTOINCREMENT,
+  code           TEXT NOT NULL UNIQUE,  -- 'MATH-UA 325'
+  subject        TEXT,                  -- 'MATH-UA'
+  catalog_number TEXT,                  -- '325'
+  title          TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS sections (
+  id             INTEGER PRIMARY KEY AUTOINCREMENT,
+
+  -- Link to courses via the code
+  course_code    TEXT NOT NULL,         -- FK to courses.code
+
+  -- Raw fields from JSON (section-level)
+  key            TEXT,                  -- '6190'
+  code           TEXT,                  -- 'MATH-UA 325' (duplicate of course_code)
+  title          TEXT,                  -- 'Analysis'
+  hide           TEXT,
+  crn            TEXT,                  -- '10528'
+  no             TEXT,                  -- '001' (section number)
+  total          INTEGER,               -- '12' -> 12
+  schd           TEXT,                  -- 'LEC'
+  stat           TEXT,                  -- 'A'
+  isCancelled    TEXT,                  -- ''
+  meets          TEXT,                  -- 'TR 12:30-1:45p'
+  mpkey          TEXT,                  -- '2651'
+  meetingTimes   TEXT,                  -- raw JSON string
+  instr          TEXT,                  -- instructor string
+  start_date     TEXT,                  -- '2026-01-20'
+  end_date       TEXT,                  -- '2026-05-05'
+  srcdb          TEXT,                  -- '1264'
+
+  -- File-level / grouping info (WSQ vs Brooklyn)
+  campus_group   TEXT,                  -- 'WSQ' or 'BROOKLYN'
+
+  FOREIGN KEY (course_code) REFERENCES courses(code)
+);
