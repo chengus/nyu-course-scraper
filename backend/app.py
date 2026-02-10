@@ -1,18 +1,14 @@
 from typing import List, Optional, Dict, Any
-import asyncio
-from pathlib import Path
 import requests
 import json
 import re
-import os
-from datetime import datetime, timedelta
 
 from fastapi import FastAPI, HTTPException, Query, Body
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-import scraper
-import sql
+from backend import scraper
+from backend import sql
 
 
 def parse_meeting_html(meeting_html: str) -> tuple[str, str, str]:
