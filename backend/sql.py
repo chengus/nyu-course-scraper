@@ -9,12 +9,15 @@ load_dotenv()
 
 WSQ_FILE = "wsq.json"
 BROOKLYN_FILE = "brooklyn.json"
-LOCAL_DB = "nyu-courses.db"  # Local SQLite database file
+BASE_DIR = Path(__file__).resolve().parent
+DATA_DIR = BASE_DIR / "data"
+LOCAL_DB = DATA_DIR / "nyu-courses.db"  # Local SQLite database file
 
 
 def get_conn():
     """Get a local SQLite connection (no remote sync)."""
-    return libsql.connect(LOCAL_DB)
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    return libsql.connect(str(LOCAL_DB))
 
 
 def init_schema(conn) -> None:
@@ -325,7 +328,7 @@ def main() -> None:
     conn = get_conn()
     init_schema(conn)
 
-    base_dir = Path("data")
+    base_dir = DATA_DIR
 
     wsq_path = base_dir / WSQ_FILE
     brooklyn_path = base_dir / BROOKLYN_FILE

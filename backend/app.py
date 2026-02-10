@@ -12,8 +12,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
-import scraper
-import sql
+import backend.scraper as scraper
+import backend.sql as sql
 
 
 def parse_meeting_html(meeting_html: str) -> tuple[str, str, str]:
@@ -57,7 +57,7 @@ app.add_middleware(
 )
 
 # Check if frontend build exists (for production) and mount static files
-frontend_build = Path("../frontend/build")
+frontend_build = (Path(__file__).resolve().parent / "../frontend/build").resolve()
 if frontend_build.exists():
     app.mount("/static", StaticFiles(directory=str(frontend_build / "static")), name="static")
 

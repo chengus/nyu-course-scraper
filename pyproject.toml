@@ -13,10 +13,4 @@ dependencies = [
     "uvicorn==0.40.0",
 ]
 
-[tool.uv.workspace]
-members = [
-    "backend",
-]
 
-[project.scripts]
-app = "backend.app:app"
