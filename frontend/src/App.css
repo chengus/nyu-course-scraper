@@ -328,6 +328,27 @@ h2 {
     transform: scale(0.98);
 }
 
+.search-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 0.85em;
+    color: #666;
+}
+
+.search-footer a {
+    color: #56068cb9;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.search-footer a:hover {
+    text-decoration: underline;
+}
+
 .course-list {
     display: grid;
     gap: 15px;

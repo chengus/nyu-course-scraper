@@ -461,6 +461,16 @@ function App() {
                         <CourseSearchForm onSearch={handleSearch} />
                         {loading && <p className="status-message">Loading courses...</p>}
                         {error && <p className="error-message">Error: {error}</p>}
+                        <div className="search-footer">
+                            <span>Made by CAS'28</span>
+                            <a
+                                href="https://github.com/chengus/nyu-bobcat-search"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                GitHub
+                            </a>
+                        </div>
                     </section>
                 </aside>
 
