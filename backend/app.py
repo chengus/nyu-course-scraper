@@ -293,7 +293,7 @@ async def get_course_details(request: CourseDetailsRequest = Body(...)):
 
 
 @app.post("/update-database", response_model=UpdateResponse)
-async def update_database(request: UpdateRequest = None, force: bool = Query(True, description="Force update even if less than 1 day old")):
+async def update_database(request: UpdateRequest = None, force: bool = Query(False, description="Force update even if less than 1 day old")):
     """
     Scrape course data from NYU's API and update the database.
     Only updates if the database is more than 1 day old (unless force=True).
@@ -325,7 +325,7 @@ async def update_database(request: UpdateRequest = None, force: bool = Query(Tru
             if time_since_update < timedelta(days=1):
                 return UpdateResponse(
                     status="skipped",
-                    message=f"Database was updated {hours_since:.1f} hours ago. Will update in {hours_left:.1f} hours. Use force=true to update now.",
+                    message=f"Database was updated {hours_since:.1f} hours ago. Will update in {hours_left:.1f} hours.",
                     files_downloaded=[],
                     records_processed=0
                 )
@@ -494,7 +494,7 @@ def search_sections(
         result_set = conn.execute(sql, params)
         rows = result_set.fetchall()
         for row in rows:
-            # Convert row tuple to dict manually (Turso doesn't have row_factory)
+            # Convert row tuple to dict manually
             results.append(SectionResult(
                 section_id=row[0],
                 course_code=row[1],

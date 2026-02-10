@@ -1,0 +1,26 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: uv run uvicorn backend.app:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+
+  frontend:
+    image: node:20-slim
+    working_dir: /app/frontend
+    volumes:
+      - .:/app
+      - frontend_node_modules:/app/frontend/node_modules
+    command: sh -c "npm install && npm start"
+    ports:
+      - "3000:3000"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+volumes:
+  frontend_node_modules:

@@ -1,11 +1,7 @@
 import json
-import os
+import sqlite3
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
-from dotenv import load_dotenv
-import libsql
-
-load_dotenv()
 
 WSQ_FILE = "wsq.json"
 BROOKLYN_FILE = "brooklyn.json"
@@ -17,7 +13,7 @@ LOCAL_DB = DATA_DIR / "nyu-courses.db"  # Local SQLite database file
 def get_conn():
     """Get a local SQLite connection (no remote sync)."""
     DATA_DIR.mkdir(parents=True, exist_ok=True)
-    return libsql.connect(str(LOCAL_DB))
+    return sqlite3.connect(str(LOCAL_DB))
 
 
 def init_schema(conn) -> None:
@@ -102,14 +98,13 @@ def init_schema(conn) -> None:
     );
     """)
     
-    # Note: Turso automatically handles schema, no need for ALTER TABLE migrations
+    # Note: Schema is managed locally; no migrations needed for this demo
     conn.commit()
 
 
 def optimize_for_bulk_load(conn) -> None:
-    """Speed up large inserts on the local replica."""
-    # These pragmas apply to the local SQLite replica used by libsql.
-    # They trade durability for throughput during bulk writes.
+    """Speed up large inserts on the local SQLite database."""
+    # These pragmas trade durability for throughput during bulk writes.
     conn.execute("PRAGMA journal_mode=WAL")
     conn.execute("PRAGMA synchronous=OFF")
 
@@ -300,7 +295,7 @@ def insert_prepared_data(
 ) -> None:
     """
     Insert prepared course and section data into the database.
-    This should be called from the API endpoint that manages Turso updates.
+    This should be called from the API endpoint that manages database updates.
     """
     # Bulk insert courses (ignore duplicates)
     print(f"  Inserting {len(courses_data)} courses...", flush=True)
