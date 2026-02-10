@@ -1,19 +1,31 @@
 (short) nyu-course-scraper
 
+![NYU Bobcat Search logo](frontend/logo.png)
+
+NYU Bobcat Search is a full-stack app that scrapes NYU course data and lets you search, filter, and inspect course offerings through a simple web UI backed by a FastAPI service.
+
+Features
+--------
+
+- Search courses by code, title, CRN, schedule type, and campus group.
+- Scrape and refresh the course database from NYU's API.
+- View detailed course metadata like descriptions, prerequisites, and units.
+- Check database status and campus breakdowns for quick sanity checks.
+
 Development startup
 ---------------
 
-## Docker
+### Docker
 `docker-compose up --build`
 
-## Backend (FastAPI)
+### Backend (FastAPI)
 
 ```bash
 cd backend
 uv run fastapi run backend.py
 ```
 
-Frontend (React)
+### Frontend (React)
 
 ```bash
 cd frontend
