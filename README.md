@@ -3,29 +3,11 @@
 Development startup
 ---------------
 
-Backend (FastAPI)
-
-1. Create a virtual environment and install dependencies:
+## Backend (FastAPI)
 
 ```bash
-python3 -m venv .venv
-. .venv/bin/activate
-pip install --upgrade pip
-pip install fastapi pydantic requests "uvicorn[standard]"
-```
-
-2. Run the API from the project root:
-
-```bash
-# Recommended: uvicorn from project root
-uvicorn backend.backend:app --reload --port 8000
-
-# Alternative: FastAPI CLI from project root
-fastapi run backend/backend.py
-
-# Or run directly from backend directory
 cd backend
-python backend.py
+uv run fastapi run backend.py
 ```
 
 Frontend (React)
