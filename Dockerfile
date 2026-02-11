@@ -27,4 +27,4 @@ EXPOSE 8000 3000
 RUN cd frontend && npm run build
 
 # Only run FastAPI (It will serve the frontend files)
-CMD ["uv", "run", "fastapi", "run", "backend/app.py", "--host", "0.0.0.0", "--port", "$PORT"]
+CMD ["sh", "-c", "uv run fastapi run backend/app.py --host 0.0.0.0 --port ${PORT:-8000}"]
