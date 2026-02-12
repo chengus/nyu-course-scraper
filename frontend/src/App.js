@@ -153,6 +153,10 @@ const parseMeetsString = (course) => {
 
 
 function App() {
+    const [isMobile, setIsMobile] = useState(() => {
+        if (typeof window === 'undefined') return false;
+        return window.innerWidth <= 768;
+    });
     const [courses, setCourses] = useState([]);
     const [stagedCourses, setStagedCourses] = useState(() => {
         // Load staged courses from localStorage on initial mount
@@ -182,8 +186,26 @@ function App() {
     const [showCalendar, setShowCalendar] = useState(false);
     const [updating, setUpdating] = useState(false);
     const [updateMessage, setUpdateMessage] = useState(null);
-    const [currentView, setCurrentView] = useState('week');
+    const [currentView, setCurrentView] = useState(isMobile ? 'day' : 'week');
     const [currentDate, setCurrentDate] = useState(new Date());
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(max-width: 768px)');
+        const handleViewportChange = (event) => {
+            setIsMobile(event.matches);
+        };
+
+        setIsMobile(mediaQuery.matches);
+        mediaQuery.addEventListener('change', handleViewportChange);
+
+        return () => {
+            mediaQuery.removeEventListener('change', handleViewportChange);
+        };
+    }, []);
+
+    useEffect(() => {
+        setCurrentView(isMobile ? 'day' : 'week');
+    }, [isMobile]);
 
     // Save staged courses to localStorage whenever they change
     useEffect(() => {
@@ -678,6 +700,7 @@ function App() {
                                 startAccessor="start"
                                 endAccessor="end"
                                 style={{ height: '100%' }}
+                                views={isMobile ? ['day', 'agenda'] : ['week', 'day', 'agenda']}
                                 view={currentView}
                                 onView={setCurrentView}
                                 date={currentDate}

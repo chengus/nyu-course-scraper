@@ -500,6 +500,13 @@ if build_dir.exists():
     # Create a link from /static to the frontend build static folder
     app.mount("/static", StaticFiles(directory=str(build_dir / "static")), name="static")
 
+    @app.get("/favicon.ico", include_in_schema=False)
+    async def serve_favicon():
+        favicon_path = build_dir / "favicon.ico"
+        if favicon_path.exists():
+            return FileResponse(str(favicon_path), media_type="image/x-icon")
+        raise HTTPException(status_code=404, detail="favicon.ico not found")
+
     # 3. Catch-all route to serve index.html
     # This must be the LAST route defined
     @app.get("/{full_path:path}")

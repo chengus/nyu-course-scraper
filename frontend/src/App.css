@@ -7,6 +7,8 @@ body {
     -moz-osx-font-smoothing: grayscale;
     background-color: #f5f5f5;
     color: #333;
+    line-height: 1.4;
+    overflow-x: hidden;
 }
 
 code {
@@ -63,6 +65,7 @@ code {
     display: flex;
     gap: 12px;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .update-db-btn {
@@ -75,6 +78,7 @@ code {
     font-size: 0.95em;
     font-weight: 600;
     transition: all 0.2s;
+    min-height: 44px;
 }
 
 .update-db-btn:hover:not(:disabled) {
@@ -97,6 +101,7 @@ code {
     font-size: 0.95em;
     font-weight: 600;
     transition: all 0.2s;
+    min-height: 44px;
 }
 
 .clear-schedule-btn:hover:not(:disabled) {
@@ -119,6 +124,7 @@ code {
     font-size: 0.95em;
     font-weight: 600;
     transition: all 0.2s;
+    min-height: 44px;
 }
 
 .toggle-calendar-btn:hover {
@@ -420,6 +426,7 @@ h2 {
     font-size: 0.85em;
     padding-top: 4px;
     border-top: 1px solid #f0f0f0;
+    word-break: break-word;
 }
 
 .course-item button {
@@ -784,5 +791,177 @@ h2 {
 .rbc-event[style*="background-color: rgb(220, 53, 69)"]:hover,
 .rbc-event[style*="backgroundColor: rgb(220, 53, 69)"]:hover {
     background-color: #bd2130 !important;
+}
+
+@media (max-width: 768px) {
+    .App-header {
+        padding: 14px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .header-title {
+        gap: 8px;
+    }
+
+    .App-header h1 {
+        font-size: 1.35em;
+    }
+
+    .disclaimer-badge {
+        white-space: normal;
+    }
+
+    .header-buttons {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .update-db-btn,
+    .clear-schedule-btn,
+    .toggle-calendar-btn {
+        width: 100%;
+        padding: 10px 12px;
+    }
+
+    .left-sidebar,
+    .main-content,
+    .right-sidebar {
+        padding: 16px;
+    }
+
+    h2 {
+        font-size: 1.05em;
+        margin-bottom: 14px;
+        padding-bottom: 10px;
+    }
+
+    .course-item {
+        padding: 12px;
+    }
+
+    .course-item-header {
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .course-section {
+        flex-shrink: 0;
+    }
+
+    .course-detail-section {
+        padding: 12px;
+    }
+
+    .course-detail-section h3 {
+        font-size: 0.9em;
+    }
+
+    .detail-item,
+    .detail-group .detail-item,
+    .detail-section .detail-item {
+        display: block;
+        margin: 0 0 6px 0;
+    }
+
+    .search-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .calendar-modal-wrapper {
+        padding: 8px;
+    }
+
+    .calendar-modal {
+        height: 92vh;
+        border-radius: 8px;
+    }
+
+    .calendar-modal-header {
+        padding: 12px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .calendar-modal-header h2 {
+        font-size: 1.1em;
+    }
+
+    .calendar-header-buttons {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .download-ics-btn,
+    .close-calendar-btn {
+        width: 100%;
+        min-height: 40px;
+    }
+
+    .close-calendar-btn {
+        height: 40px;
+        font-size: 1.1em;
+    }
+
+    .calendar-container {
+        padding: 10px;
+    }
+
+    .rbc-calendar {
+        min-height: 360px;
+    }
+
+    .rbc-toolbar {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: stretch;
+    }
+
+    .rbc-toolbar .rbc-btn-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .rbc-toolbar button {
+        margin: 0 !important;
+        min-height: 40px;
+        flex: 1 1 auto;
+    }
+
+    .rbc-time-view,
+    .rbc-month-view,
+    .rbc-agenda-view {
+        font-size: 0.85em;
+    }
+}
+
+@media (max-width: 480px) {
+    .left-sidebar,
+    .main-content,
+    .right-sidebar {
+        padding: 12px;
+    }
+
+    .App-header h1 {
+        font-size: 1.2em;
+    }
+
+    .course-item-title {
+        font-size: 0.85em;
+    }
+
+    .calendar-container {
+        padding: 8px;
+    }
 }
 
